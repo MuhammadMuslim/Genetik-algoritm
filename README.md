@@ -1,0 +1,2 @@
+# Genetik-algoritm
+Genetik algoritm
