@@ -1,7 +1,9 @@
 clc;
-
+%%
+%study study
 disp('max, f(x1,x2) = 19 + x1inrange(a)*(sin(x1inrange(a)*3.14)) + (10-x2inrange(a))*(sin(x2inrange(a)*3.14))')
 disp(' ')
+%%
 % menentukan parameter populasi, khusus untuk penentuan jumlah kromosom,
 % perlu ada perhitungan lebih lanjut
 nindividu = 18;
@@ -10,28 +12,39 @@ ngenerasi = 200;
 % total digit real: range * 10^3 = 10^4
 % menghitung jumlah bit bilangan basis 2 yang diperlukan agar dapat
 % menampung sejumlah 10^5 bilangan basis 10
+%%
+%1.Representasi Chromosome
+
+%ketelitian 
 pangkat = 4;
 total = 1;
+%m1
 disp('148.001 <= 2^m1');
 formulacari1=(9.8-(-5))* 10^4-1;
 m1 = 17.1752;m1d=18;
 disp('m1 ='),disp(ceil(m1));
 
+%m2
 disp('73.001 <= 2^m2');
 formulacari2=(7.3-0)* 10^4-1;
 m2 = 73.001;m2d=17;  
 disp('m2 = 17');
 disp(' ');
 
-string_chromosome = m1d+m2d 
+panjang_string_chromosome = m1d+m2d 
 
+%nilai sampling parent
 pj =de2bi(m1d)
 pj =de2bi(m2d)
-
-while (total < 175000)
+%%
+%2.inisialisasi cromosom (lanjutan)
+%sampling popsize = 10
+while (total <= 10)
 pangkat = pangkat + 1;
 total = total + (2 ^ pangkat);
 end;
+%% 
+%3.Reproduksi (yang digunakan metode crossover)
 pangkat = pangkat + 1;
 % jumlah total kromosom
 nkromosom = pangkat * 2;
@@ -42,6 +55,8 @@ individu = floor(rand(nindividu,nkromosom) * 2);
 % mencatat fitness yang didapatkan di setiap iterasi
 fitness_berjalan = -9999;
 fitness_terbaik(1) = fitness_berjalan;
+%%
+%4.evaluasi
 % proses evaluasi genetik berjalan:
 for gen = 1 : ngenerasi
 % mengkonversi bilangan biner ke bilangan cacah
@@ -87,6 +102,8 @@ probabilitas_fitness(a) = fitness(a) / total_fitness;
 end;
 % menghitung kumulatif probabilitas fitness di roulete wheel
 kumulatif_fitness = cumsum(probabilitas_fitness);
+%%
+%5.evaluasi
 % menentukan lokasi sample di roulete wheel
 roulete = rand(1,nindividu);
 % memilih parent
@@ -187,7 +204,6 @@ xlabel('Generasi');
 ylabel('f(x1,x2)');
 legend('terbaik','maksimum','mean','minimum','location','southoutside','orientation','horizontal');
 hold off;
-
 
 %{
 
